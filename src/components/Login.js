@@ -20,7 +20,6 @@ function Login() {
         { email, password },
         { withCredentials: true }
       );
-      setIsLoading(false);
       if (response.data.success) {
         const user = response.data.existingUser;
         setCookie(
@@ -30,8 +29,9 @@ function Login() {
         );
       }
     } catch (e) {
-      setIsLoading(false);
       console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -40,7 +40,7 @@ function Login() {
   ) : (
     <form onSubmit={handleSubmit}>
       <input
-        type="text"
+        type="email"
         autoComplete="off"
         name="email"
         id="login-email"

@@ -5,7 +5,7 @@ import axios from "axios";
 export const noteContext = createContext();
 
 export const NoteProvider = (props) => {
-  const [cookies] = useCookies();
+  const [cookies] = useCookies(["user"]);
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
