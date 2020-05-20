@@ -5,23 +5,27 @@ import { noteContext } from "../context/noteContext";
 const AddNote = () => {
   const [notes, setNotes] = useContext(noteContext);
   const [note, setNote] = useState({});
+  const [created, setCreated] = useState(false);
 
-  const saveNote = (e) => {
-    note[e.target.name] = e.target.value;
-
-    if (!(note.title + note.content)) {
+  const saveNote = () => {
+    if (!note.title && !note.content) {
+      setCreated(false);
       return deleteNote(note, () => setNote({}));
     }
-    if (!note._id) {
+    if (!created) {
+      setCreated(true);
       return createNote(note, (savedNote) => setNote(savedNote));
     }
-    editNote(note, (editedNote) => setNote(editedNote));
+    if (note._id) {
+      return editNote(note, (editedNote) => setNote(editedNote));
+    }
   };
 
   const updateNotes = (e) => {
     e.preventDefault();
     if (Object.keys(note).length !== 0) {
       setNotes([...notes, note]);
+      setCreated(false);
       setNote({});
       document.querySelector("#note-title").value = "";
       document.querySelector("#note-content").value = "";
@@ -37,7 +41,10 @@ const AddNote = () => {
           id="note-title"
           autoComplete="off"
           placeholder="Title..."
-          onChange={saveNote}
+          onChange={(e) => {
+            note[e.target.name] = e.target.value;
+            saveNote();
+          }}
         />
         <input
           type="text"
@@ -45,7 +52,10 @@ const AddNote = () => {
           id="note-content"
           autoComplete="off"
           placeholder="Note..."
-          onChange={saveNote}
+          onChange={(e) => {
+            note[e.target.name] = e.target.value;
+            saveNote();
+          }}
         />
         <button type="submit">DONE</button>
       </form>
