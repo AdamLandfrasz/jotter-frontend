@@ -10,6 +10,7 @@ import {
 import { NoteProvider } from "./context/noteContext";
 import Notes from "./components/Notes";
 import Login from "./components/Login";
+import NotFound from "./components/NotFound";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,17 +20,14 @@ function App() {
     <div className="App">
       <Container fluid="md">
         <Router>
-          <Switch>
-            <NoteProvider>
-              <Route
-                exact
-                path="/"
-                render={(props) => <Redirect to="/notes" />}
-              />
+          <NoteProvider>
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="/notes" />} />
               <Route path="/notes" component={Notes} />
               <Route path="/login" component={Login} />
-            </NoteProvider>
-          </Switch>
+              <Route component={NotFound} />
+            </Switch>
+          </NoteProvider>
         </Router>
       </Container>
     </div>
