@@ -5,11 +5,12 @@ import axios from "axios";
 export const noteContext = createContext();
 
 export const NoteProvider = (props) => {
-  const [cookies] = useCookies(["user"]);
+  const [cookies] = useCookies();
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     if (!cookies.user) return;
+    console.log("fetching user's notes");
     axios
       .get(`${process.env.REACT_APP_API_URL}/notes`, { withCredentials: true })
       .then((res) => setNotes(res.data.userNotes))

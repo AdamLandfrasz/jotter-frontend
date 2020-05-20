@@ -21,6 +21,7 @@ function Login() {
         { withCredentials: true }
       );
       if (response.data.success) {
+        setIsLoading(false);
         const user = response.data.existingUser;
         setCookie(
           "user",
@@ -30,7 +31,6 @@ function Login() {
       }
     } catch (e) {
       console.log(e);
-    } finally {
       setIsLoading(false);
     }
   };
