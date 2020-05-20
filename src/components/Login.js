@@ -3,24 +3,34 @@ import { Redirect } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 
+import Loader from "react-loader-spinner";
+
 function Login() {
   const [cookies, setCookie] = useCookies(["user"]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/auth/login`,
         { email, password },
         { withCredentials: true }
       );
+      setIsLoading(false);
       if (response.data.success) {
         const user = response.data.existingUser;
-        setCookie("user", { id: user._id, email: user.email });
+        setCookie(
+          "user",
+          { id: user._id, email: user.email },
+          { expires: new Date(Date.now() + 60 * 60000) }
+        );
       }
     } catch (e) {
+      setIsLoading(false);
       console.log(e);
     }
   };
@@ -46,7 +56,11 @@ function Login() {
         required
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">SIGN IN</button>
+      {isLoading ? (
+        <Loader type="TailSpin" color="#000" />
+      ) : (
+        <button type="submit">SIGN IN</button>
+      )}
     </form>
   );
 }

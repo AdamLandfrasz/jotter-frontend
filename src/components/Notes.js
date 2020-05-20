@@ -15,7 +15,7 @@ function Notes() {
       .then((res) => setNotes(res.data.userNotes))
       .catch((e) => console.log(e));
   }, []);
-  console.log(notes);
+
   return cookies.user ? (
     <React.Fragment>
       <h4>NOTES</h4>
