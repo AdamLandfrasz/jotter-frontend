@@ -10,6 +10,7 @@ import {
 import { NoteProvider } from "./context/noteContext";
 import Notes from "./components/Notes";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
               <Route exact path="/" render={() => <Redirect to="/notes" />} />
               <Route path="/notes" component={Notes} />
               <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
               <Route component={NotFound} />
             </Switch>
           </NoteProvider>

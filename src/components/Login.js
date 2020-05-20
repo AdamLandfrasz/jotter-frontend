@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 
 import Loader from "react-loader-spinner";
@@ -38,30 +38,33 @@ function Login() {
   return cookies.user ? (
     <Redirect to="/notes" />
   ) : (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        autoComplete="off"
-        name="email"
-        id="login-email"
-        placeholder="E-mail"
-        required
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        name="password"
-        id="login-password"
-        placeholder="Password"
-        required
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      {isLoading ? (
-        <Loader type="TailSpin" color="#000" />
-      ) : (
-        <button type="submit">SIGN IN</button>
-      )}
-    </form>
+    <React.Fragment>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          autoComplete="off"
+          name="email"
+          id="login-email"
+          placeholder="E-mail"
+          required
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          name="password"
+          id="login-password"
+          placeholder="Password"
+          required
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {isLoading ? (
+          <Loader type="TailSpin" color="#000" />
+        ) : (
+          <button type="submit">SIGN IN</button>
+        )}
+      </form>
+      <Link to="/register">REGISTER</Link>
+    </React.Fragment>
   );
 }
 
