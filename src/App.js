@@ -1,7 +1,13 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
+import { NoteProvider } from "./context/noteContext";
 import Notes from "./components/Notes";
 import Login from "./components/Login";
 
@@ -14,8 +20,15 @@ function App() {
       <Container fluid="md">
         <Router>
           <Switch>
-            <Route exact path="/" component={Notes} />
-            <Route path="/login" component={Login} />
+            <NoteProvider>
+              <Route
+                exact
+                path="/"
+                render={(props) => <Redirect to="/notes" />}
+              />
+              <Route path="/notes" component={Notes} />
+              <Route path="/login" component={Login} />
+            </NoteProvider>
           </Switch>
         </Router>
       </Container>

@@ -7,9 +7,9 @@ import Loader from "react-loader-spinner";
 
 function Login() {
   const [cookies, setCookie] = useCookies(["user"]);
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ function Login() {
   };
 
   return cookies.user ? (
-    <Redirect to="/" />
+    <Redirect to="/notes" />
   ) : (
     <form onSubmit={handleSubmit}>
       <input
