@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
 import {
   BrowserRouter as Router,
   Route,
@@ -13,25 +12,23 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Container fluid="md">
-        <Router>
-          <NoteProvider>
-            <Switch>
-              <Route exact path="/" render={() => <Redirect to="/notes" />} />
-              <Route path="/notes" component={Notes} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route component={NotFound} />
-            </Switch>
-          </NoteProvider>
-        </Router>
-      </Container>
+      <Router>
+        <NoteProvider>
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/notes" />} />
+            <Route path="/notes" component={Notes} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route component={NotFound} />
+          </Switch>
+        </NoteProvider>
+      </Router>
     </div>
   );
 }

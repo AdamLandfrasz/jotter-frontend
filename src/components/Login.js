@@ -3,7 +3,10 @@ import { useCookies } from "react-cookie";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 
-import Loader from "react-loader-spinner";
+import formStyles from "./Form.module.css";
+import containerStyles from "./Container.module.css";
+
+import { Form, Row, Col } from "react-bootstrap";
 
 function Login() {
   const [cookies, setCookie] = useCookies(["user"]);
@@ -38,33 +41,52 @@ function Login() {
   return cookies.user ? (
     <Redirect to="/notes" />
   ) : (
-    <React.Fragment>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          autoComplete="off"
-          name="email"
-          id="login-email"
-          placeholder="E-mail"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          name="password"
-          id="login-password"
-          placeholder="Password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {isLoading ? (
-          <Loader type="TailSpin" color="#000" />
-        ) : (
-          <button type="submit">SIGN IN</button>
-        )}
-      </form>
-      <Link to="/register">REGISTER</Link>
-    </React.Fragment>
+    <div className={containerStyles.container}>
+      <Form onSubmit={handleSubmit} className={formStyles.form}>
+        <Row>
+          <Col xs={12} md={6}>
+            <Form.Label>E-mail address</Form.Label>
+            <Form.Control
+              type="email"
+              autoComplete="off"
+              name="email"
+              id="login-email"
+              placeholder="E-mail..."
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Col>
+          <Col xs={12} md={6}>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              id="login-password"
+              placeholder="Password..."
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col>
+            <button
+              disabled={isLoading}
+              type="submit"
+              className={formStyles.button}
+            >
+              {isLoading ? "Loading…" : "Log In"}
+            </button>
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col className="text-center">
+            <span>Don't have an account yet? </span>
+            <Link to="/register">Register</Link>
+          </Col>
+        </Row>
+      </Form>
+    </div>
   );
 }
 
