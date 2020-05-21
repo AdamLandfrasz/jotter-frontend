@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
-import { Redirect, withRouter, Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 
 import formStyles from "./Form.module.css";
-import containerStyles from "./Container.module.css";
-import buttonStyles from "./Button.module.css";
+import buttonStyles from "../Button.module.css";
 
 import { Form, Row, Col } from "react-bootstrap";
 
-function Register(props) {
-  const [cookies] = useCookies(["user"]);
+function Login() {
+  const [cookies, setCookie] = useCookies(["user"]);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,13 +19,18 @@ function Register(props) {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/auth/register`,
+        `${process.env.REACT_APP_API_URL}/auth/login`,
         { email, password },
         { withCredentials: true }
       );
       if (response.data.success) {
         setIsLoading(false);
-        props.history.push("/login");
+        const user = response.data.existingUser;
+        setCookie(
+          "user",
+          { id: user._id, email: user.email },
+          { expires: new Date(Date.now() + 60 * 60000) }
+        );
       }
     } catch (e) {
       console.log(e);
@@ -37,27 +41,29 @@ function Register(props) {
   return cookies.user ? (
     <Redirect to="/notes" />
   ) : (
-    <div className={containerStyles.container}>
+    <div className={formStyles.container}>
       <Form onSubmit={handleSubmit} className={formStyles.form}>
         <Row>
-          <Col xs={12} md={6}>
+          <Col>
             <Form.Label>E-mail address</Form.Label>
             <Form.Control
               type="email"
               autoComplete="off"
               name="email"
-              id="register-email"
+              id="login-email"
               placeholder="E-mail..."
               required
               onChange={(e) => setEmail(e.target.value)}
             />
           </Col>
-          <Col xs={12} md={6}>
+        </Row>
+        <Row>
+          <Col>
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               name="password"
-              id="register-password"
+              id="login-password"
               placeholder="Password..."
               required
               onChange={(e) => setPassword(e.target.value)}
@@ -71,14 +77,14 @@ function Register(props) {
               type="submit"
               className={buttonStyles.button}
             >
-              {isLoading ? "Loading…" : "Register"}
+              {isLoading ? "Loading…" : "Log In"}
             </button>
           </Col>
         </Row>
         <Row className="justify-content-center">
           <Col className="text-center">
-            <span>Already have an account? </span>
-            <Link to="/login">Log In</Link>
+            <span>Don't have an account yet? </span>
+            <Link to="/register">Register</Link>
           </Col>
         </Row>
       </Form>
@@ -86,4 +92,4 @@ function Register(props) {
   );
 }
 
-export default withRouter(Register);
+export default Login;

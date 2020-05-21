@@ -1,11 +1,21 @@
-/* Extra small devices (portrait phones, less than 576px)
-No media query for `xs` since this is the default in Bootstrap */
+.form {
+  border: 2px solid rgb(235, 235, 235);
+  border-radius: 5px;
+
+  padding: 1rem 2rem;
+
+  background-color: #fff;
+  width: 100%;
+}
+
+.form * {
+  margin-bottom: 5px;
+}
 
 .container {
   margin: 0 auto;
   padding: 0 5px;
   height: 80vh;
-  max-width: 540px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,6 +24,9 @@ No media query for `xs` since this is the default in Bootstrap */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
+  .container {
+    max-width: 500px;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
@@ -21,12 +34,4 @@ No media query for `xs` since this is the default in Bootstrap */
   .container {
     padding: 0 15px;
   }
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
 }

@@ -8,8 +8,8 @@ import {
 
 import { NoteProvider } from "./context/noteContext";
 import Notes from "./components/Notes";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./components/forms/Login";
+import Register from "./components/forms/Register";
 import NotFound from "./components/NotFound";
 
 import "bootstrap/dist/css/bootstrap.min.css";

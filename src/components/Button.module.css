@@ -23,3 +23,7 @@
 .button:active {
   outline: none;
 }
+
+.button:disabled {
+  opacity: 0.65;
+}
