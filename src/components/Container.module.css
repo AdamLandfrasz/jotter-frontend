@@ -2,9 +2,10 @@
 No media query for `xs` since this is the default in Bootstrap */
 
 .container {
-  padding: 0 15px;
   margin: 0 auto;
+  padding: 0 5px;
   height: 80vh;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,28 +14,19 @@ No media query for `xs` since this is the default in Bootstrap */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .container {
-    max-width: 540px;
+    padding: 0 15px;
   }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  .container {
-    max-width: 540px;
-  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .container {
-    max-width: 540px;
-  }
 }

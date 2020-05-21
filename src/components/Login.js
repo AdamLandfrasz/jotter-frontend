@@ -5,6 +5,7 @@ import axios from "axios";
 
 import formStyles from "./Form.module.css";
 import containerStyles from "./Container.module.css";
+import buttonStyles from "./Button.module.css";
 
 import { Form, Row, Col } from "react-bootstrap";
 
@@ -73,7 +74,7 @@ function Login() {
             <button
               disabled={isLoading}
               type="submit"
-              className={formStyles.button}
+              className={buttonStyles.button}
             >
               {isLoading ? "Loading…" : "Log In"}
             </button>
