@@ -46,7 +46,7 @@ const AddNote = () => {
             saveNote();
           }}
         />
-        <input
+        <textarea
           type="text"
           name="content"
           id="note-content"

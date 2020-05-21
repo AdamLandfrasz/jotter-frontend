@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createNote = async (note, callback) => {
+export const createNote = async (note, callback = undefined) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/notes`,
@@ -15,7 +15,7 @@ export const createNote = async (note, callback) => {
   }
 };
 
-export const editNote = async (note, callback) => {
+export const editNote = async (note, callback = undefined) => {
   try {
     const response = await axios.put(
       `${process.env.REACT_APP_API_URL}/notes`,
@@ -28,7 +28,7 @@ export const editNote = async (note, callback) => {
   }
 };
 
-export const deleteNote = async (note, callback) => {
+export const deleteNote = async (note, callback = undefined) => {
   try {
     await axios.delete(`${process.env.REACT_APP_API_URL}/notes/${note._id}`, {
       withCredentials: true,

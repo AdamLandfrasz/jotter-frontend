@@ -6,6 +6,10 @@ import { noteContext } from "../context/noteContext";
 import Note from "./Note";
 import AddNote from "./AddNote";
 
+import Masonry from "react-masonry-component";
+
+import noteStyles from "./Notes.module.css";
+
 function Notes() {
   const [notes] = useContext(noteContext);
   const [cookies] = useCookies(["user"]);
@@ -13,10 +17,17 @@ function Notes() {
   return cookies.user ? (
     <React.Fragment>
       <AddNote />
-      <div>
-        {notes.map((note) => (
-          <Note key={note._id} note={note}></Note>
-        ))}
+      <div className={noteStyles.container}>
+        <Masonry
+          options={{
+            gutter: 10,
+            fitWidth: true,
+          }}
+        >
+          {notes.map((note) => (
+            <Note key={note._id} note={note}></Note>
+          ))}
+        </Masonry>
       </div>
     </React.Fragment>
   ) : (
