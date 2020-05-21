@@ -3,6 +3,7 @@
   border-radius: 5px;
 
   padding: 1rem 2rem;
+  margin-top: 21vh;
 
   background-color: #fff;
   width: 100%;
@@ -12,26 +13,8 @@
   margin-bottom: 5px;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 5px;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  .container {
-    max-width: 500px;
-  }
-}
-
-/* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .container {
-    padding: 0 15px;
+  .form {
+    width: 450px;
   }
 }

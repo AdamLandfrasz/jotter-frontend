@@ -8,7 +8,7 @@ import AddNote from "./AddNote";
 
 import Masonry from "react-masonry-component";
 
-import noteStyles from "./Notes.module.css";
+import containerStyles from "./Container.module.css";
 
 function Notes() {
   const [notes] = useContext(noteContext);
@@ -17,7 +17,7 @@ function Notes() {
   return cookies.user ? (
     <React.Fragment>
       <AddNote />
-      <div className={noteStyles.container}>
+      <div className={containerStyles.container}>
         <Masonry
           options={{
             gutter: 10,

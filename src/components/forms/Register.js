@@ -5,6 +5,7 @@ import axios from "axios";
 
 import formStyles from "./Form.module.css";
 import buttonStyles from "../Button.module.css";
+import containerStyles from "../Container.module.css";
 
 import { Form, Row, Col } from "react-bootstrap";
 
@@ -36,7 +37,7 @@ function Register(props) {
   return cookies.user ? (
     <Redirect to="/notes" />
   ) : (
-    <div className={formStyles.container}>
+    <div className={containerStyles.container}>
       <Form onSubmit={handleSubmit} className={formStyles.form}>
         <Row>
           <Col xs={12} md={6}>
