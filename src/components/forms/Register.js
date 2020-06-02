@@ -71,7 +71,7 @@ function Register(props) {
             <button
               disabled={isLoading}
               type="submit"
-              className={buttonStyles.button}
+              className={buttonStyles.blockButton}
             >
               {isLoading ? "Loading…" : "Register"}
             </button>

@@ -76,7 +76,7 @@ function Login() {
             <button
               disabled={isLoading}
               type="submit"
-              className={buttonStyles.button}
+              className={buttonStyles.blockButton}
             >
               {isLoading ? "Loading…" : "Log In"}
             </button>
