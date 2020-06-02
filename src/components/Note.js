@@ -7,20 +7,20 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import noteStyles from "./Notes.module.css";
 import buttonStyles from "./Button.module.css";
 
-function Note(props) {
+function Note({ note }) {
   const [notes, setNotes] = useContext(noteContext);
 
   const handleDelete = () => {
-    deleteNote(props.note);
-    setNotes(notes.filter((note) => note._id !== props.note._id));
+    deleteNote(note);
+    setNotes(notes.filter((element) => element._id !== note._id));
   };
 
   return (
     <div className={noteStyles.note}>
-      <div className={noteStyles.title}>{props.note.title}</div>
-      <div className={noteStyles.content}>{props.note.content}</div>
-      <div>
-        <button onClick={handleDelete} className={buttonStyles.deleteButton}>
+      <div className={noteStyles.title}>{note.title}</div>
+      <div className={noteStyles.content}>{note.content}</div>
+      <div className={noteStyles.noteBottomRow}>
+        <button onClick={handleDelete} className={buttonStyles.iconButton}>
           <DeleteIcon />
         </button>
       </div>
