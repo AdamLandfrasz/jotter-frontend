@@ -40,7 +40,7 @@ function Register(props) {
     <div className={containerStyles.container}>
       <Form onSubmit={handleSubmit} className={formStyles.form}>
         <Row>
-          <Col xs={12} md={6}>
+          <Col>
             <Form.Label>E-mail address</Form.Label>
             <Form.Control
               type="email"
@@ -52,7 +52,9 @@ function Register(props) {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Col>
-          <Col xs={12} md={6}>
+        </Row>
+        <Row>
+          <Col>
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
