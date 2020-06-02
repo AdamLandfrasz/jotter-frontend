@@ -21,7 +21,6 @@ function Notes() {
       onClick={() => setExpanded(false)}
     >
       <AddNote expanded={inputExpanded} setExpanded={setExpanded} />
-      {/* <div className={noteStyles.noteContainer}> */}
       <Masonry disableImagesLoaded={true} options={{ fitWidth: true }}>
         {notes
           .sort((a, b) => {
@@ -33,7 +32,6 @@ function Notes() {
             <Note key={note._id} note={note}></Note>
           ))}
       </Masonry>
-      {/* </div> */}
     </div>
   ) : (
     <Redirect to="/login" />
