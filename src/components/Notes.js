@@ -15,21 +15,19 @@ function Notes() {
   const [cookies] = useCookies(["user"]);
 
   return cookies.user ? (
-    <React.Fragment>
+    <div className={containerStyles.container}>
       <AddNote />
-      <div className={containerStyles.container}>
-        <Masonry
-          options={{
-            gutter: 10,
-            fitWidth: true,
-          }}
-        >
-          {notes.map((note) => (
-            <Note key={note._id} note={note}></Note>
-          ))}
-        </Masonry>
-      </div>
-    </React.Fragment>
+      <Masonry
+        options={{
+          gutter: 10,
+          fitWidth: true,
+        }}
+      >
+        {notes.map((note) => (
+          <Note key={note._id} note={note}></Note>
+        ))}
+      </Masonry>
+    </div>
   ) : (
     <Redirect to="/login" />
   );

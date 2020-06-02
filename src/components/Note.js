@@ -2,7 +2,10 @@ import React, { useContext } from "react";
 import { deleteNote } from "../http";
 import { noteContext } from "../context/noteContext";
 
+import DeleteIcon from "@material-ui/icons/Delete";
+
 import noteStyles from "./Notes.module.css";
+import buttonStyles from "./Button.module.css";
 
 function Note(props) {
   const [notes, setNotes] = useContext(noteContext);
@@ -17,7 +20,9 @@ function Note(props) {
       <div className={noteStyles.title}>{props.note.title}</div>
       <div className={noteStyles.content}>{props.note.content}</div>
       <div>
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleDelete} className={buttonStyles.deleteButton}>
+          <DeleteIcon />
+        </button>
       </div>
     </div>
   );
