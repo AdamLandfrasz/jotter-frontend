@@ -3,7 +3,6 @@ import { createNote, editNote, deleteNote } from "../http";
 import { noteContext } from "../context/noteContext";
 
 import { Row, Col } from "react-bootstrap";
-import { TextareaAutosize } from "@material-ui/core";
 
 import addNoteStyles from "./AddNote.module.css";
 import buttonStyles from "./Button.module.css";
