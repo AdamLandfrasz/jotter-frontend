@@ -6,15 +6,21 @@ import { Row, Col } from "react-bootstrap";
 
 import addNoteStyles from "./AddNote.module.css";
 import buttonStyles from "./Button.module.css";
+import { Checkbox } from "@material-ui/core";
 
 const AddNote = ({ expanded, setExpanded }) => {
   const [notes, setNotes] = useContext(noteContext);
-  const [note, setNote] = useState({ content: "", title: "" });
+  const [note, setNote] = useState({
+    content: "",
+    title: "",
+    noteType: "note",
+  });
   const [created, setCreated] = useState(false);
+  const [isList, setIsList] = useState(false);
 
   const saveNote = () => {
     note.content = note.content.replace(/<br>/g, "\n").trim();
-    if (!note.title && !note.content) {
+    if (!note.title && !note.content && note._id) {
       setCreated(false);
       return deleteNote(note, () => setNote({}));
     }
@@ -33,10 +39,16 @@ const AddNote = ({ expanded, setExpanded }) => {
     if (Object.keys(note).length !== 0) {
       setNotes([...notes, note]);
       setCreated(false);
-      setNote({ content: "", title: "" });
+      setNote({ content: "", title: "", noteType: "note" });
       document.querySelector("#note-title").value = "";
       document.querySelector("#note-content").textContent = "";
     }
+  };
+
+  const toggleList = (e) => {
+    document.querySelector("#note-content").textContent = "";
+    setIsList(!isList);
+    note.noteType = !isList ? "list" : "note";
   };
 
   return (
@@ -72,25 +84,37 @@ const AddNote = ({ expanded, setExpanded }) => {
             data-name="content"
             id="note-content"
             spellCheck="true"
-            contentEditable="true"
+            contentEditable={!isList}
             onClick={(e) => setExpanded(true)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
                 document.execCommand("insertHTML", false, "<br><br>");
-                console.log(e.target.innerHTML);
               }
             }}
             onInput={(e) => {
               note[e.target.dataset.name] = e.target.innerHTML;
               saveNote();
             }}
-          />
+          >
+            {isList
+              ? note.content.split("\n").map((row, i) => (
+                  <div key={i}>
+                    <Checkbox />
+                    {row}
+                  </div>
+                ))
+              : null}
+          </div>
         </Col>
       </Row>
       <Row style={!expanded ? { display: "none" } : null}>
         <Col className={addNoteStyles.col}>
-          <button className={buttonStyles.button} type="button">
+          <button
+            className={buttonStyles.button}
+            type="button"
+            onClick={toggleList}
+          >
             List
           </button>
           <button className={buttonStyles.button} type="submit">

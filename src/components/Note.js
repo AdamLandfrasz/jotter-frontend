@@ -24,6 +24,7 @@ function Note({ note }) {
           <DeleteIcon />
         </button>
       </div>
+      {note.noteType}
     </div>
   );
 }

@@ -5,9 +5,7 @@ export const createNote = async (note, callback = undefined) => {
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/notes`,
       { note },
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
     if (callback) callback(response.data.savedNote);
   } catch (e) {
