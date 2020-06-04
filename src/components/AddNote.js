@@ -10,10 +10,11 @@ import buttonStyles from "./Button.module.css";
 
 const AddNote = ({ expanded, setExpanded }) => {
   const [notes, setNotes] = useContext(noteContext);
-  const [note, setNote] = useState({});
+  const [note, setNote] = useState({ content: "", title: "" });
   const [created, setCreated] = useState(false);
 
   const saveNote = () => {
+    note.content = note.content.replace(/<br>/g, "\n").trim();
     if (!note.title && !note.content) {
       setCreated(false);
       return deleteNote(note, () => setNote({}));
@@ -33,9 +34,9 @@ const AddNote = ({ expanded, setExpanded }) => {
     if (Object.keys(note).length !== 0) {
       setNotes([...notes, note]);
       setCreated(false);
-      setNote({});
+      setNote({ content: "", title: "" });
       document.querySelector("#note-title").value = "";
-      document.querySelector("#note-content").value = "";
+      document.querySelector("#note-content").textContent = "";
     }
   };
 
@@ -45,7 +46,6 @@ const AddNote = ({ expanded, setExpanded }) => {
       onClick={(e) => e.stopPropagation()}
       className={addNoteStyles.form}
       autoComplete="off"
-      style={!expanded ? { padding: "0.2rem" } : null}
     >
       <Row style={!expanded ? { display: "none" } : null}>
         <Col className={addNoteStyles.col}>
@@ -68,16 +68,22 @@ const AddNote = ({ expanded, setExpanded }) => {
           className={addNoteStyles.col}
           style={!expanded ? { marginBottom: "-0.7rem" } : null}
         >
-          <TextareaAutosize
+          <div
             className={addNoteStyles.content}
-            name="content"
+            data-name="content"
             id="note-content"
-            placeholder="Content..."
             spellCheck="true"
-            rows="1"
+            contentEditable="true"
             onClick={(e) => setExpanded(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                document.execCommand("insertHTML", false, "<br><br>");
+                console.log(e.target.innerHTML);
+              }
+            }}
             onInput={(e) => {
-              note[e.target.name] = e.target.value;
+              note[e.target.dataset.name] = e.target.innerHTML;
               saveNote();
             }}
           />
@@ -85,6 +91,9 @@ const AddNote = ({ expanded, setExpanded }) => {
       </Row>
       <Row style={!expanded ? { display: "none" } : null}>
         <Col className={addNoteStyles.col}>
+          <button className={buttonStyles.button} type="button">
+            List
+          </button>
           <button className={buttonStyles.button} type="submit">
             Done
           </button>
