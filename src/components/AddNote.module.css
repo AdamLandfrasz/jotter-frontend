@@ -16,18 +16,26 @@
   justify-content: flex-end;
 }
 
+.contentContainer {
+  display: grid;
+  grid-template-columns: 100%;
+}
+
 .title {
   font-weight: 500;
   width: 100%;
 }
 
-.content {
-  resize: none;
+.content,
+.contentPlaceholder {
   width: 100%;
+  grid-row: 1;
+  grid-column: 1;
 }
 
 .title,
-.content {
+.content,
+.contentPlaceholder {
   padding: 0.25rem 0.25rem;
   margin-bottom: 0.7rem;
   color: #202124;
@@ -43,6 +51,11 @@
 
 .title::placeholder,
 .content::placeholder {
+  color: #999;
+  font-weight: 500;
+}
+
+.contentPlaceholder {
   color: #999;
   font-weight: 500;
 }

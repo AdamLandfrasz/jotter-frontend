@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import { NoteProvider } from "./context/noteContext";
+import { InputExpandedProvider } from "./context/inputExpandedContext";
 import Notes from "./components/Notes";
 import Login from "./components/forms/Login";
 import Register from "./components/forms/Register";
@@ -22,7 +23,16 @@ function App() {
         <NoteProvider>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/notes" />} />
-            <Route path="/notes" component={Notes} />
+            <Route
+              path="/notes"
+              render={() => {
+                return (
+                  <InputExpandedProvider>
+                    <Notes />
+                  </InputExpandedProvider>
+                );
+              }}
+            />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route component={NotFound} />

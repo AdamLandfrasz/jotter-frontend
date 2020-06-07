@@ -1,25 +1,23 @@
 import React, { useState, useContext } from "react";
 import { createNote, editNote, deleteNote } from "../http";
 import { noteContext } from "../context/noteContext";
+import { inputExpandedContext } from "../context/inputExpandedContext";
 
 import { Row, Col } from "react-bootstrap";
 
 import addNoteStyles from "./AddNote.module.css";
 import buttonStyles from "./Button.module.css";
-import { Checkbox } from "@material-ui/core";
 
-const AddNote = ({ expanded, setExpanded }) => {
+const AddNote = () => {
   const [notes, setNotes] = useContext(noteContext);
+  const [expanded, setExpanded] = useContext(inputExpandedContext);
   const [note, setNote] = useState({
-    content: "",
-    title: "",
     noteType: "note",
   });
   const [created, setCreated] = useState(false);
   const [isList, setIsList] = useState(false);
 
   const saveNote = () => {
-    note.content = note.content.replace(/<br>/g, "\n").trim();
     if (!note.title && !note.content && note._id) {
       setCreated(false);
       return deleteNote(note, () => setNote({}));
@@ -36,7 +34,7 @@ const AddNote = ({ expanded, setExpanded }) => {
   const updateNotes = (e) => {
     e.preventDefault();
     setExpanded(false);
-    if (Object.keys(note).length !== 0) {
+    if (Object.keys(note).length > 1) {
       setNotes([...notes, note]);
       setCreated(false);
       setNote({ content: "", title: "", noteType: "note" });
@@ -45,10 +43,17 @@ const AddNote = ({ expanded, setExpanded }) => {
     }
   };
 
-  const toggleList = (e) => {
-    document.querySelector("#note-content").textContent = "";
+  const toggleList = () => {
     setIsList(!isList);
-    note.noteType = !isList ? "list" : "note";
+    if (!isList) {
+      note.type = "list";
+      note.content = note.content.split("\n").map((row) => {
+        return { content: row, isComplete: false };
+      });
+    } else {
+      note.type = "note";
+      note.content = note.content.map((row) => row.content).join("\n");
+    }
   };
 
   return (
@@ -76,36 +81,43 @@ const AddNote = ({ expanded, setExpanded }) => {
       </Row>
       <Row>
         <Col
-          className={addNoteStyles.col}
+          className={addNoteStyles.contentContainer}
           style={!expanded ? { marginBottom: "-0.7rem" } : null}
         >
           <div
-            className={addNoteStyles.content}
-            data-name="content"
-            id="note-content"
-            spellCheck="true"
-            contentEditable={!isList}
-            onClick={(e) => setExpanded(true)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                document.execCommand("insertHTML", false, "<br><br>");
-              }
+            className={addNoteStyles.contentPlaceholder}
+            onClick={() => {
+              setExpanded(true);
             }}
-            onInput={(e) => {
-              note[e.target.dataset.name] = e.target.innerHTML;
-              saveNote();
+            style={{
+              zIndex: expanded ? "-50" : "0",
+              display: note.content ? "none" : "block",
             }}
           >
-            {isList
-              ? note.content.split("\n").map((row, i) => (
-                  <div key={i}>
-                    <Checkbox />
-                    {row}
-                  </div>
-                ))
-              : null}
+            Note...
           </div>
+          {isList ? (
+            <div></div>
+          ) : (
+            <div
+              className={addNoteStyles.content}
+              style={{ display: expanded ? "block" : "none" }}
+              id="note-content"
+              spellCheck="true"
+              contentEditable
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  document.execCommand("insertHTML", false, "<br><br>");
+                }
+              }}
+              onInput={(e) => {
+                note.content = e.target.innerHTML.replace(/<br>/g, "\n").trim();
+                setNote(note);
+                saveNote();
+              }}
+            />
+          )}
         </Col>
       </Row>
       <Row style={!expanded ? { display: "none" } : null}>
@@ -113,7 +125,10 @@ const AddNote = ({ expanded, setExpanded }) => {
           <button
             className={buttonStyles.button}
             type="button"
-            onClick={toggleList}
+            onClick={() => {
+              toggleList();
+              saveNote();
+            }}
           >
             List
           </button>
