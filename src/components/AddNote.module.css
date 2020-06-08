@@ -11,14 +11,22 @@
   border-radius: 0.6rem;
 }
 
-.col {
-  display: flex;
+.btnCol {
   justify-content: flex-end;
 }
 
-.contentContainer {
-  display: grid;
-  grid-template-columns: 100%;
+.col {
+  margin-bottom: 0.35rem;
+}
+
+.col,
+.btnCol {
+  display: flex;
+}
+
+.listRow {
+  display: flex;
+  align-items: center;
 }
 
 .title {
@@ -26,18 +34,14 @@
   width: 100%;
 }
 
-.content,
-.contentPlaceholder {
+.content {
   width: 100%;
-  grid-row: 1;
-  grid-column: 1;
+  resize: none;
 }
 
 .title,
-.content,
-.contentPlaceholder {
+.content {
   padding: 0.25rem 0.25rem;
-  margin-bottom: 0.7rem;
   color: #202124;
   border: none;
   background: none;
@@ -55,9 +59,9 @@
   font-weight: 500;
 }
 
-.contentPlaceholder {
-  color: #999;
-  font-weight: 500;
+.checkbox,
+.checkbox * {
+  color: #30c193;
 }
 
 @media (min-width: 768px) {

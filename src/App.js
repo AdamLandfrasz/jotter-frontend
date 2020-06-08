@@ -7,7 +7,9 @@ import {
 } from "react-router-dom";
 
 import { NoteProvider } from "./context/noteContext";
+import { NewNoteProvider } from "./context/newNoteContext";
 import { InputExpandedProvider } from "./context/inputExpandedContext";
+
 import Notes from "./components/Notes";
 import Login from "./components/forms/Login";
 import Register from "./components/forms/Register";
@@ -27,9 +29,11 @@ function App() {
               path="/notes"
               render={() => {
                 return (
-                  <InputExpandedProvider>
-                    <Notes />
-                  </InputExpandedProvider>
+                  <NewNoteProvider>
+                    <InputExpandedProvider>
+                      <Notes />
+                    </InputExpandedProvider>
+                  </NewNoteProvider>
                 );
               }}
             />
