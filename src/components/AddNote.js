@@ -36,7 +36,7 @@ const AddNote = () => {
         setCreated(false);
         return deleteNote(newNote, () =>
           setNewNote({
-            content: [{ id: 1, content: "", isComplete: false }],
+            content: [{ id: 0, content: "", isComplete: false }],
             noteType: "list",
           })
         );
@@ -60,10 +60,10 @@ const AddNote = () => {
     e.preventDefault();
     setExpanded(false);
     setIsList(false);
+    setNewNote({});
     if (newNote._id) {
       setNotes([...notes, newNote]);
       setCreated(false);
-      setNewNote({});
       document.querySelector("#note-content").value = "";
     }
   };
@@ -73,7 +73,7 @@ const AddNote = () => {
     if (!isList) {
       setNewNote({
         ...newNote,
-        content: [{ id: 1, content: "", isComplete: false }],
+        content: [{ id: 0, content: "", isComplete: false }],
         noteType: "list",
       });
     } else {
@@ -119,6 +119,7 @@ const AddNote = () => {
             />
           ) : (
             <NoteInput
+              id="note-content"
               onClick={() => setExpanded(true)}
               saveNote={saveNote}
               currentNote={newNote}

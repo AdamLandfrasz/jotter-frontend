@@ -4,11 +4,11 @@ import { TextareaAutosize } from "@material-ui/core";
 
 import addNoteStyles from "../AddNote.module.css";
 
-function NoteInput({ onClick, saveNote, currentNote }) {
+function NoteInput({ id, onClick, saveNote, currentNote }) {
   return (
     <TextareaAutosize
       className={addNoteStyles.content}
-      id="note-content"
+      id={id}
       name="content"
       autoComplete="off"
       spellCheck="true"

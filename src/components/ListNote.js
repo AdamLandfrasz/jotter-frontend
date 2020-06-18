@@ -12,7 +12,8 @@ function ListNote({ note }) {
   const [notes, setNotes] = useContext(noteContext);
   const [, setHidden, , setModalNote] = useContext(modalContext);
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.stopPropagation();
     deleteNote(note);
     setNotes(notes.filter((element) => element._id !== note._id));
   };

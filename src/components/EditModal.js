@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { editNote } from "../http";
 import { modalContext } from "../context/modalContext";
 import { noteContext } from "../context/noteContext";
 
@@ -6,11 +7,27 @@ import ListNoteInput from "./noteInput/ListNoteInput";
 import NoteInput from "./noteInput/NoteInput";
 
 import modalStyles from "./Modal.module.css";
-import { editNote } from "../http";
+import addNoteStyles from "./AddNote.module.css";
 
 function EditModal() {
   const [hidden, setHidden, note, setNote] = useContext(modalContext);
   const [notes, setNotes] = useContext(noteContext);
+
+  const focusCursor = () => {
+    if (!Array.isArray(note.content)) {
+      const contentBox = document.querySelector("#edit-note-content");
+      contentBox.focus();
+      contentBox.setSelectionRange(
+        contentBox.value.length,
+        contentBox.value.length
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (hidden) return;
+    focusCursor();
+  }, [hidden]);
 
   const saveNote = () => {
     editNote(note, (editedNote) => setNote(editedNote));
@@ -18,6 +35,7 @@ function EditModal() {
 
   const hideModalAndUpdate = () => {
     setHidden(true);
+    saveNote();
     // setNotes([...notes.filter((element) => element._id !== note._id), note]);
     setNotes(
       notes.map((element) => (element._id === note._id ? note : element))
@@ -33,7 +51,9 @@ function EditModal() {
           id="edit-note-title"
           placeholder="Title..."
           spellCheck="true"
+          autoComplete="off"
           defaultValue={note.title}
+          className={addNoteStyles.title}
           onChange={(e) => {
             note.title = e.target.value;
             saveNote();
@@ -46,7 +66,11 @@ function EditModal() {
             setCurrentNote={setNote}
           />
         ) : (
-          <NoteInput saveNote={saveNote} currentNote={note} />
+          <NoteInput
+            id="edit-note-content"
+            saveNote={saveNote}
+            currentNote={note}
+          />
         )}
       </div>
     </div>
