@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { noteContext } from "../context/noteContext";
-import { inputExpandedContext } from "../context/inputExpandedContext";
+import { addNoteContext } from "../context/addNoteContext";
 
 import Note from "./Note";
 import ListNote from "./ListNote";
@@ -11,12 +11,10 @@ import AddNote from "./AddNote";
 import Masonry from "react-masonry-component";
 
 import containerStyles from "./Container.module.css";
-import { newNoteContext } from "../context/newNoteContext";
 
 function Notes() {
+  const [setExpanded, setIsList, setNewNote] = useContext(addNoteContext);
   const [notes] = useContext(noteContext);
-  const [, setNewNote, , setIsList] = useContext(newNoteContext);
-  const [, setExpanded] = useContext(inputExpandedContext);
   const [cookies] = useCookies(["user"]);
 
   return cookies.user ? (

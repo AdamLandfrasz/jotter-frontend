@@ -1,13 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import { newNoteContext } from "../../context/newNoteContext";
 import { TextareaAutosize } from "@material-ui/core";
 
 import addNoteStyles from "../AddNote.module.css";
 
-function NoteInput({ onClick, saveNote }) {
-  const [newNote] = useContext(newNoteContext);
-
+function NoteInput({ onClick, saveNote, currentNote }) {
   return (
     <TextareaAutosize
       className={addNoteStyles.content}
@@ -16,7 +13,7 @@ function NoteInput({ onClick, saveNote }) {
       spellCheck="true"
       placeholder="Note..."
       onInput={(e) => {
-        newNote.content = e.target.value;
+        currentNote.content = e.target.value;
         saveNote();
       }}
       onClick={onClick}

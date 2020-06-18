@@ -1,20 +1,29 @@
 import React, { useState, useContext } from "react";
 import { createNote, editNote, deleteNote } from "../http";
 import { noteContext } from "../context/noteContext";
-import { newNoteContext } from "../context/newNoteContext";
-import { inputExpandedContext } from "../context/inputExpandedContext";
+import { addNoteContext } from "../context/addNoteContext";
 
 import NoteInput from "./noteInput/NoteInput";
 import ListNoteInput from "./noteInput/ListNoteInput";
 import { Row, Col } from "react-bootstrap";
 
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
 import addNoteStyles from "./AddNote.module.css";
 import buttonStyles from "./Button.module.css";
 
 const AddNote = () => {
+  const [
+    setExpanded,
+    setIsList,
+    setNewNote,
+    newNote,
+    expanded,
+    isList,
+  ] = useContext(addNoteContext);
   const [notes, setNotes] = useContext(noteContext);
-  const [expanded, setExpanded] = useContext(inputExpandedContext);
-  const [newNote, setNewNote, isList, setIsList] = useContext(newNoteContext);
   const [created, setCreated] = useState(false);
 
   const saveNote = () => {
@@ -103,9 +112,17 @@ const AddNote = () => {
           style={expanded ? {} : { marginBottom: "0" }}
         >
           {isList ? (
-            <ListNoteInput saveNote={saveNote} />
+            <ListNoteInput
+              saveNote={saveNote}
+              currentNote={newNote}
+              setCurrentNote={setNewNote}
+            />
           ) : (
-            <NoteInput onClick={() => setExpanded(true)} saveNote={saveNote} />
+            <NoteInput
+              onClick={() => setExpanded(true)}
+              saveNote={saveNote}
+              currentNote={newNote}
+            />
           )}
         </Col>
       </Row>
@@ -113,16 +130,16 @@ const AddNote = () => {
         <Row>
           <Col className={addNoteStyles.btnCol}>
             <button
-              className={buttonStyles.button}
+              className={buttonStyles.iconButton}
               type="button"
               onClick={() => {
                 toggleList();
               }}
             >
-              List
+              {isList ? <AssignmentIcon /> : <CheckBoxIcon />}
             </button>
-            <button className={buttonStyles.button} type="submit">
-              Done
+            <button className={buttonStyles.iconButton} type="submit">
+              <ExitToAppIcon />
             </button>
           </Col>
         </Row>
