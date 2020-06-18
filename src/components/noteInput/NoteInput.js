@@ -10,8 +10,10 @@ function NoteInput({ onClick, saveNote, currentNote }) {
       className={addNoteStyles.content}
       id="note-content"
       name="content"
+      autoComplete="off"
       spellCheck="true"
       placeholder="Note..."
+      defaultValue={currentNote.content}
       onInput={(e) => {
         currentNote.content = e.target.value;
         saveNote();

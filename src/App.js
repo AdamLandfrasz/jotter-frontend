@@ -16,6 +16,8 @@ import NotFound from "./components/NotFound";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import { ModalProvider } from "./context/modalContext";
+import EditModal from "./components/EditModal";
 
 function App() {
   return (
@@ -29,7 +31,10 @@ function App() {
               render={() => {
                 return (
                   <AddNoteProvider>
-                    <Notes />
+                    <ModalProvider>
+                      <Notes />
+                      <EditModal />
+                    </ModalProvider>
                   </AddNoteProvider>
                 );
               }}

@@ -56,6 +56,7 @@ function ListNoteInput({ saveNote, currentNote, setCurrentNote }) {
           <div key={row.id} className={addNoteStyles.listRow}>
             <Checkbox
               className={addNoteStyles.checkbox}
+              checked={row.isComplete}
               inputProps={{ "data-id": `${row.id}` }}
               onChange={(e) => {
                 handleTickBox(e);
@@ -68,6 +69,7 @@ function ListNoteInput({ saveNote, currentNote, setCurrentNote }) {
               id={`content${row.id}`}
               spellCheck="true"
               placeholder="List item"
+              defaultValue={row.content}
               onKeyDown={handleNewLine}
               onInput={(e) => {
                 handleInput(e);

@@ -1,0 +1,14 @@
+.pageMask {
+  z-index: 100;
+  background-color: rgba(66, 66, 66, 0.596);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.modal {
+  z-index: 101;
+  background-color: #fff;
+}
