@@ -36,3 +36,19 @@ export const deleteNote = async (note, callback = undefined) => {
     console.log(e);
   }
 };
+
+export const shareNote = async (
+  { noteId, userEmail },
+  callback = undefined
+) => {
+  try {
+    await axios.put(
+      `${process.env.REACT_APP_API_URL}/notes/share`,
+      { userEmail, noteId },
+      { withCredentials: true }
+    );
+    if (callback) callback();
+  } catch (e) {
+    console.log(e);
+  }
+};
