@@ -14,7 +14,11 @@ function EditModal() {
   const [notes, setNotes] = useContext(noteContext);
 
   useEffect(() => {
-    if (hidden) return;
+    if (hidden) {
+      document.querySelector("body").style = "";
+    } else {
+      document.querySelector("body").style.overflow = "hidden";
+    }
   }, [hidden]);
 
   const saveNote = () => {

@@ -8,16 +8,18 @@ import {
 
 import { NoteProvider } from "./context/noteContext";
 import { AddNoteProvider } from "./context/addNoteContext";
+import { ModalProvider } from "./context/modalContext";
 
 import Notes from "./components/Notes";
 import Login from "./components/forms/Login";
 import Register from "./components/forms/Register";
 import NotFound from "./components/NotFound";
 
+import EditModal from "./components/EditModal";
+import ShareModal from "./components/ShareModal";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { ModalProvider } from "./context/modalContext";
-import EditModal from "./components/EditModal";
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
                     <ModalProvider>
                       <Notes />
                       <EditModal />
+                      <ShareModal />
                     </ModalProvider>
                   </AddNoteProvider>
                 );

@@ -42,12 +42,12 @@ export const shareNote = async (
   callback = undefined
 ) => {
   try {
-    await axios.put(
+    const response = await axios.put(
       `${process.env.REACT_APP_API_URL}/notes/share`,
       { userEmail, noteId },
       { withCredentials: true }
     );
-    if (callback) callback();
+    if (callback) callback(response.data);
   } catch (e) {
     console.log(e);
   }

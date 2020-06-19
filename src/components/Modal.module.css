@@ -8,14 +8,15 @@
   right: 0;
 }
 
-.modal {
+.modal,
+.shareModal {
   z-index: 101;
   background-color: #f9f9fa;
   position: relative;
   top: 10%;
   margin: 0 auto;
   padding: 0.45rem;
-  width: 95%;
+  width: 93%;
   max-width: 425px;
 
   box-shadow: 0px 1px 4px 1px rgb(177, 177, 177);
@@ -23,6 +24,29 @@
   -moz-box-shadow: 0px 1px 4px 1px rgb(177, 177, 177);
 
   border-radius: 0.6rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.shareModal {
+  top: 20%;
+}
+
+.shareInput {
+  width: 100%;
+  padding: 0.25rem 0.25rem;
+  color: #202124;
+  border: none;
+  background: none;
+}
+
+.shareInput:focus {
+  border: none;
+  outline: none;
+}
+
+.shareInput::placeholder {
+  color: #999;
 }
 
 @media (min-width: 768px) {

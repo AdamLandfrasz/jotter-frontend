@@ -4,23 +4,32 @@ import { noteContext } from "../context/noteContext";
 import { modalContext } from "../context/modalContext";
 
 import DeleteIcon from "@material-ui/icons/Delete";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
 
 import noteStyles from "./Notes.module.css";
 import buttonStyles from "./Button.module.css";
 
 function ListNote({ note }) {
   const [notes, setNotes] = useContext(noteContext);
-  const [, setHidden, , setModalNote] = useContext(modalContext);
+  const [, setHidden, , setModalNote, , setShareHidden] = useContext(
+    modalContext
+  );
+
+  const showModal = () => {
+    setModalNote(note);
+    setHidden(false);
+  };
+
+  const showShareModal = (e) => {
+    e.stopPropagation();
+    setModalNote(note);
+    setShareHidden(false);
+  };
 
   const handleDelete = (e) => {
     e.stopPropagation();
     deleteNote(note);
     setNotes(notes.filter((element) => element._id !== note._id));
-  };
-
-  const showModal = () => {
-    setModalNote(note);
-    setHidden(false);
   };
 
   return (
@@ -48,6 +57,9 @@ function ListNote({ note }) {
       <div className={noteStyles.noteBottomRow}>
         <button onClick={handleDelete} className={buttonStyles.iconButton}>
           <DeleteIcon />
+        </button>
+        <button onClick={showShareModal} className={buttonStyles.iconButton}>
+          <PersonAddIcon />
         </button>
       </div>
     </div>

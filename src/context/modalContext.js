@@ -4,11 +4,21 @@ import { createContext, useState } from "react";
 export const modalContext = createContext();
 
 export const ModalProvider = (props) => {
-  const [hidden, setHidden] = useState(true);
+  const [editHidden, setEditHidden] = useState(true);
+  const [shareHidden, setShareHidden] = useState(true);
   const [note, setNote] = useState({});
 
   return (
-    <modalContext.Provider value={[hidden, setHidden, note, setNote]}>
+    <modalContext.Provider
+      value={[
+        editHidden,
+        setEditHidden,
+        note,
+        setNote,
+        shareHidden,
+        setShareHidden,
+      ]}
+    >
       {props.children}
     </modalContext.Provider>
   );
