@@ -13,20 +13,8 @@ function EditModal() {
   const [hidden, setHidden, note, setNote] = useContext(modalContext);
   const [notes, setNotes] = useContext(noteContext);
 
-  const focusCursor = () => {
-    if (!Array.isArray(note.content)) {
-      const contentBox = document.querySelector("#edit-note-content");
-      contentBox.focus();
-      contentBox.setSelectionRange(
-        contentBox.value.length,
-        contentBox.value.length
-      );
-    }
-  };
-
   useEffect(() => {
     if (hidden) return;
-    focusCursor();
   }, [hidden]);
 
   const saveNote = () => {
